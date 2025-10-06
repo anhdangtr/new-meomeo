@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HELLO WORLD!! HEHEHE</title>
+  <style>
+    :root {
+      /* mặc định là theme sáng */
+      --bg: #ffffff;
+      --card: #f8fafc;
+      --accent1: #2563eb;
+      --accent2: #06b6d4;
+      --text: #111827;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      transition: background 0.5s, color 0.5s ease;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 2rem 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      transition: background 0.5s, color 0.5s ease;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--accent1);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px var(--accent2); }
+      to { text-shadow: 0 0 20px var(--accent1), 0 0 10px var(--accent2); }
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--accent2);
+      border-radius: 0.75rem;
+      margin: 1rem 0;
+      width: 80%;
+      transition: border 0.3s;
+    }
+
+    input:focus {
+      border-color: var(--accent1);
+      outline: none;
+    }
+
+    button {
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      background: var(--accent1);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 0.5rem;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: var(--accent2);
+    }
+
+    #greeting {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent1);
+    }
+
+    /* Nút toggle theme */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .theme-toggle button:hover {
+      transform: scale(1.15);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>HELLO MEOW MEOW!!</h1>
+    <p>Đây là trang "Hello World" động, tương tác, và có giao diện đẹp. Nhập tên của bạn bên dưới, chọn theme và nhấn nút để nhận lời chào tùy chỉnh.</p>
+
+    <input id="nameInput" type="text" placeholder="Nhập tên của bạn (ví dụ: An)" />
+    <div>
+      <button id="sayHi">Bắn pháo BẰNG CHÍU BẰNG CHÍU 🎉🎉🎉</button>
+    </div>
+
+    <div class="theme-toggle">
+      <button id="lightTheme" title="Chế độ sáng" style="background: linear-gradient(135deg, #fff, #e0f2fe);"></button>
+      <button id="darkTheme" title="Chế độ tối" style="background: linear-gradient(135deg, #1e293b, #0f172a);"></button>
+      <button id="pastelTheme" title="Chế độ pastel" style="background: linear-gradient(135deg, #fbcfe8, #f9a8d4);"></button>
+      <button id="neonTheme" title="Chế độ neon" style="background: linear-gradient(135deg, #0ff, #f0f);"></button>
+    </div>
+
+    <div id="greeting">Chưa có lời chào — thử nhập tên rồi nhấn Enter hoặc nút nhé!</div>
+
+    <footer>© 2025 Demo — made with ❤️ using HTML + JS</footer>
+  </div>
+
+  <script>
+    const nameInput = document.getElementById('nameInput');
+    const sayHi = document.getElementById('sayHi');
+    const greeting = document.getElementById('greeting');
+
+    // Bắt sự kiện nút & Enter
+    function greetUser() {
+      const name = nameInput.value.trim() || 'bạn';
+      const hours = new Date().getHours();
+      let timePart = '';
+      if (hours < 12) timePart = '☀️ Chào buổi sáng';
+      else if (hours < 18) timePart = '🌤 Chào buổi chiều';
+      else timePart = '🌙 Chào buổi tối';
+      greeting.textContent = `${timePart}, ${name}! HELLO WORLD!! HEHEHE 🎆`;
+      fireConfetti();
+    }
+
+    sayHi.addEventListener('click', greetUser);
+    nameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') greetUser();
+    });
+
+    // Hiệu ứng pháo hoa 🎊
+    function fireConfetti() {
+      const duration = 1 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        const confetti = document.createElement('div');
+        confetti.textContent = '🎊';
+        confetti.style.position = 'fixed';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-2vh';
+        confetti.style.fontSize = '1.5rem';
+        confetti.style.animation = 'fall 1.5s linear forwards';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1500);
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // 🎨 Đổi theme bằng các nút tròn
+    const themes = {
+      light: {
+        bg: '#ffffff', card: '#f8fafc', accent1: '#2563eb', accent2: '#06b6d4', text: '#111827'
+      },
+      dark: {
+        bg: '#0f172a', card: '#1e293b', accent1: '#38bdf8', accent2: '#818cf8', text: '#f1f5f9'
+      },
+      pastel: {
+        bg: '#fffafc', card: '#fff1f2', accent1: '#f472b6', accent2: '#f9a8d4', text: '#831843'
+      },
+      neon: {
+        bg: '#050505', card: '#0a0a0a', accent1: '#0ff', accent2: '#f0f', text: '#ffffff'
+      }
+    };
+
+    const root = document.documentElement;
+    document.getElementById('lightTheme').addEventListener('click', () => setTheme('light'));
+    document.getElementById('darkTheme').addEventListener('click', () => setTheme('dark'));
+    document.getElementById('pastelTheme').addEventListener('click', () => setTheme('pastel'));
+    document.getElementById('neonTheme').addEventListener('click', () => setTheme('neon'));
+
+    function setTheme(name) {
+      const t = themes[name];
+      for (const key in t) {
+        root.style.setProperty(`--${key}`, t[key]);
+      }
+    }
+  </script>
+</body>
+</html>
